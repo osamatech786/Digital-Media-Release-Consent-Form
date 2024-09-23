@@ -1,0 +1,7 @@
+.env
+__pycache__
+.venv
+resource/~$_feedback_form.docx
+Filled_Consent_Form*.docx
+resized_signature_image*.png
+signature*.png
