@@ -323,8 +323,22 @@ if st.button("Submit", key="submit_button", disabled=st.session_state.submission
                 if filled_doc_path:
                     send_email(filled_doc_path)
                     st.session_state.submission_status = True
-                    st.experimental_rerun()
+                    # st.experimental_rerun()
+                    # download button
+                    try:
+                        # file download button
+                        with open(filled_doc_path, 'rb') as f:
+                            file_contents = f.read()
+                            st.download_button(
+                                label="Download Your Response",
+                                data=file_contents,
+                                file_name=filled_doc_path,
+                                mime='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                            )    
 
+                    except FileNotFoundError as file_error:
+                        st.error(f"Error with file handling: {file_error}")
+                                        
 
 
         except Exception as e:
