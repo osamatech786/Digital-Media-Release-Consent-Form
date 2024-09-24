@@ -139,7 +139,7 @@ def populate_document(data, template_path, resized_image_path, save_directory="/
 
         # Auto-generated fields
         replace_placeholder(paragraphs, 'Auto-generated ID', unique_id)
-        replace_placeholder(paragraphs, 'Auto-captured IP Address', socket.gethostbyname(socket.gethostname()))
+        replace_placeholder(paragraphs, 'Auto-captured IP Address', {requests.get("https://api.ipify.org/?format=json").json()["ip"]})
         replace_placeholder(paragraphs, 'Auto-captured Timestamp', datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
         # Save the filled document in the current directory with a unique name
