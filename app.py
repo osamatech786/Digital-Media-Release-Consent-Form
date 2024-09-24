@@ -25,6 +25,22 @@ st.set_page_config(
 
 if 'submission_status' not in st.session_state: st.session_state.submission_status = False
 
+def is_valid_email(email):
+    # Comprehensive regex for email validation
+    pattern = r'''
+        ^                         # Start of string
+        (?!.*[._%+-]{2})          # No consecutive special characters
+        [a-zA-Z0-9._%+-]{1,64}    # Local part: allowed characters and length limit
+        (?<![._%+-])              # No special characters at the end of local part
+        @                         # "@" symbol
+        [a-zA-Z0-9.-]+            # Domain part: allowed characters
+        (?<![.-])                 # No special characters at the end of domain
+        \.[a-zA-Z]{2,}$           # Top-level domain with minimum 2 characters
+    '''
+    
+    # Match the entire email against the pattern
+    return re.match(pattern, email, re.VERBOSE) is not None
+
 def resize_image_to_fit_cell(image, max_width, max_height):
     width, height = image.size
     aspect_ratio = width / height
@@ -279,76 +295,76 @@ st.markdown("""
 
 # Submit button
 if st.button("Submit", key="submit_button", disabled=st.session_state.submission_status):
-    with st.spinner('Processing...'):
-        try:
-            # Validate form inputs
-            # if not learner_name:
-            if not learner_name or not learner_email or not learner_phone or not is_signature_drawn(learner_signature):
-                st.error("Please fill in all required fields.")
-            else:
-                # Collect form data
-                form_data = {
-                    'learner_name': learner_name,
-                    'learner_email': learner_email,
-                    'learner_phone': learner_phone,
-                    # 'shared_date': shared_date.strftime("%d-%m-%y"),  # Use shared date
-                    'shared_date': st.session_state.signature_date,
-                    # 'learner_signature': learner_signature,
-                    # 'learner_full_name': learner_full_name,
-                    'parent_signature': parent_signature,
-                }
-
-                # Path to the Word template document
-                template_path = "resource/ph_digital_media_consent.docx"  # Adjust the template file path
-
-                # Signature:
-                safe_learner_name = learner_name.strip().replace(" ", "_").lower()
-                signature_path = f'signature_{sanitize_filename(safe_learner_name)}.png'            
-                resized_image_path = f'resized_signature_image_{sanitize_filename(safe_learner_name)}.png'
-                signature_image = PILImage.fromarray(learner_signature.astype('uint8'), 'RGBA')
-                signature_image.save(signature_path)
-                # Open and resize the image
-                print(f"Opening image file: {signature_path}")
-                resized_image = PILImage.open(signature_path)
-                print(f"Original image size: {resized_image.size}")
-                resized_image = resize_image_to_fit_cell(resized_image, 200, 50)
-                resized_image.save(resized_image_path)  # Save resized image to a file
-                print(f"Resized image saved to: {resized_image_path}")
-
-
-                # Populate the document
-                filled_doc_path = populate_document(form_data, template_path, resized_image_path)
-
-                # Send the document via email
-                if filled_doc_path:
-                    send_email(filled_doc_path)
-                    st.session_state.submission_status = True
-                    # st.experimental_rerun()
-                    # download button
+    if (is_valid_email(learner_email)):
+        if learner_name and learner_email and learner_phone:
+            if is_signature_drawn(learner_signature):
+                with st.spinner('Processing...'):
                     try:
-                        # file download button
-                        with open(filled_doc_path, 'rb') as f:
-                            file_contents = f.read()
-                            st.download_button(
-                                label="Download Your Response",
-                                data=file_contents,
-                                file_name=filled_doc_path,
-                                mime='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-                            )    
+                        # Validate form inputs
+                        # if not learner_name:
+                    
+                        # Collect form data
+                        form_data = {
+                            'learner_name': learner_name,
+                            'learner_email': learner_email,
+                            'learner_phone': learner_phone,
+                            # 'shared_date': shared_date.strftime("%d-%m-%y"),  # Use shared date
+                            'shared_date': st.session_state.signature_date,
+                            'parent_signature': parent_signature,
+                        }
 
-                    except FileNotFoundError as file_error:
-                        st.error(f"Error with file handling: {file_error}")
-                                        
+                        # Path to the Word template document
+                        template_path = "resource/ph_digital_media_consent.docx"  # Adjust the template file path
+
+                        # Signature:
+                        safe_learner_name = learner_name.strip().replace(" ", "_").lower()
+                        signature_path = f'signature_{sanitize_filename(safe_learner_name)}.png'            
+                        resized_image_path = f'resized_signature_image_{sanitize_filename(safe_learner_name)}.png'
+                        signature_image = PILImage.fromarray(learner_signature.astype('uint8'), 'RGBA')
+                        signature_image.save(signature_path)
+                        # Open and resize the image
+                        print(f"Opening image file: {signature_path}")
+                        resized_image = PILImage.open(signature_path)
+                        print(f"Original image size: {resized_image.size}")
+                        resized_image = resize_image_to_fit_cell(resized_image, 200, 50)
+                        resized_image.save(resized_image_path)  # Save resized image to a file
+                        print(f"Resized image saved to: {resized_image_path}")
 
 
-        except Exception as e:
-            # Display the error message on the screen
-            st.error(f"An unexpected error occurred")
-            st.error('Restarting in 10 SECONDS. . .')
-            st.error(f"Please take screenshot of the following error and share with Developer: \n{str(e)}")
-            time.sleep(12)
-            st.experimental_rerun()
+                        # Populate the document
+                        filled_doc_path = populate_document(form_data, template_path, resized_image_path)
 
+                        # Send the document via email
+                        if filled_doc_path:
+                            send_email(filled_doc_path)
+                            st.session_state.submission_status = True
+                            # st.experimental_rerun()
+                            # download button
+                            try:
+                                # file download button
+                                with open(filled_doc_path, 'rb') as f:
+                                    file_contents = f.read()
+                                    st.download_button(
+                                        label="Download Your Response",
+                                        data=file_contents,
+                                        file_name=filled_doc_path,
+                                        mime='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                                    )    
+                            except FileNotFoundError as file_error:
+                                st.error(f"Error with file handling: {file_error}")
+                    except Exception as e:
+                        # Display the error message on the screen
+                        st.error(f"An unexpected error occurred")
+                        st.error('Restarting in 10 SECONDS. . .')
+                        st.error(f"Please take screenshot of the following error and share with Developer: \n{str(e)}")
+                        time.sleep(12)
+                        st.experimental_rerun()
+            else:
+                st.error("Please Draw the signature!")
+        else:
+            st.error("Please fill in all required fields!")
+    else:
+        st.warning("Please enter valid email address!")
 
 if st.session_state.submission_status:
     st.success("Thank you for submitting your consent.")
