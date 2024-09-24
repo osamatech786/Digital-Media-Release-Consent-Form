@@ -192,8 +192,6 @@ def send_email(file_path):
         server.sendmail(sender_email, receiver_email, msg.as_string())
         server.quit()
 
-        st.success(f"Consent form submitted and sent to {receiver_email}.")
-
     except smtplib.SMTPException as smtp_error:
         st.error(f"SMTP error occurred: {smtp_error}")
 
@@ -367,7 +365,8 @@ if st.button("Submit", key="submit_button", disabled=st.session_state.submission
         st.warning("Please enter valid email address!")
 
 if st.session_state.submission_status:
-    st.success("Thank you for submitting your consent.")
+    # st.success("Thank you for submitting your consent.")
+    st.success(f"Consent form submitted and sent to {st.secrets['sender_email']}.")
 
 # streamlit run app.py
 # Dev : https://linkedin.com/in/osamatech786
