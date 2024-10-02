@@ -160,6 +160,8 @@ def send_email(file_path):
         # password = 'pass'
         sender_email = st.secrets["sender_email"]  
         password = st.secrets["sender_password"]  
+        # sender_email = 'dummy'
+        # sender_password = 'dummy' 
         receiver_email = sender_email  # Send to the same email address
         smtp_server = "smtp.office365.com"
         smtp_port = 587
@@ -260,9 +262,9 @@ I confirm that I am at least 18 years of age or have the consent of my parent/gu
 ########################################################################
 
 # Feedback form fields
-learner_name = st.text_input("Type your name", key="learner_name")
-learner_email = st.text_input("Type your email", key="learner_email")
-learner_phone = st.text_input("Type your phone", key="learner_phone")
+learner_name = st.text_input("Your full legal name", key="learner_name")
+learner_email = st.text_input("Your email address", key="learner_email")
+learner_phone = st.text_input("Your phone number", key="learner_phone")
 # shared_date = st.date_input(
 #         label="Date",  # Label for the field
 #         min_value=date(1900, 1, 1),  # Minimum selectable date
