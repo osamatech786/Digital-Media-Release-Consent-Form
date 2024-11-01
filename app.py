@@ -178,7 +178,7 @@ def send_email(file_path):
         msg['Subject'] = "Digital Media Release Consent Form Submission"
 
         # Email body
-        body = "Please find the attached filled consent form."
+        body = f"Please find the attached filled consent form of {form_data['learner_name']}"
         msg.attach(MIMEText(body, 'plain'))
 
         # Attach the document
