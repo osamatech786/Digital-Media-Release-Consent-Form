@@ -245,27 +245,38 @@ I understand that Prevista Ltd (the "Business") wishes to use the Media Footage 
 - On the Business' website, prevista.co.uk, partner websites, internal and external blog articles, and course-specific pages.
 - In marketing communications, including but not limited to educational, commercial, promotional, and informational uses, in any media or format, now known or invented in the future, worldwide, without time limits.
 
-### 2. Rights and Permissions:
+### 2. Partner Usage Rights:
+"I understand and agree that Prevista Ltd may, at its discretion, grant limited usage rights of the Media Footage to its official partners and associates ('Authorized Partners'):
+
+Authorized Partners are limited to:
+
+- Official training delivery partners
+- Government funding bodies
+- Accredited qualification awarding bodies
+- Contracted service providers
+- Other organizations formally affiliated with Prevista Ltd
+
+### 3. Rights and Permissions:
 - I grant the Business exclusive permission to use the Media Footage for the Specified Purposes.
 - I understand that my image and voice may be edited, copied, modified, exhibited, published, or distributed, and I waive the right to inspect or approve the finished product.
 
-### 3. Compensation:
+### 4. Compensation:
 - I waive the right to any royalties or other compensation arising from or relating to the use of the Media Footage.
 
-### 4. Data Storage and Transfer:
+### 5. Data Storage and Transfer:
 - I consent to the Business storing copies of the Media Footage and/or my contact details on its database for the Specified Purposes or in case it needs to contact me.
 - I consent to the Business storing and transferring the Media Footage and my contact details to locations outside of the UK or European Economic Area (EEA), particularly to the Philippines and other regions that serve as bases for sub-contractors of the Business, for the Specified Purposes.
 
-### 5. Data Protection and Privacy:
+### 6. Data Protection and Privacy:
 - In accordance with the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018, I consent to the collection, use, and processing of my personal data, including my name, likeness, voice, and any other identifiable information in the Media Footage, by Prevista Ltd solely for the purposes outlined in this form.
 - I understand that my personal data will be processed fairly and lawfully and will not be used for any purpose other than those stated above without my additional consent.
 - I understand that my data will be stored securely by Prevista Ltd and will only be retained for as long as necessary to fulfil the purposes outlined in this form or as required by law.
 
-### 6. Right to Withdraw Consent:
+### 7. Right to Withdraw Consent:
 - I understand that I may withdraw my consent at any time by contacting Prevista Ltd at enquiries@prevista.co.uk. However, I acknowledge that any use of my Media Footage prior to my withdrawal will not be affected.
 - I am aware that if I withdraw my consent, my personal data will be deleted or anonymised where possible, in compliance with data protection laws.
 
-### 7. Access to Information:
+### 8. Access to Information:
 - I understand that I have the right to request access to the personal data held about me, to rectify any inaccuracies, or to request the erasure of my data where appropriate.
 """)
 
