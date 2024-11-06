@@ -14,7 +14,8 @@ import re
 from PIL import Image as PILImage
 from docx.shared import Inches
 import time
-
+from dotenv import load_dotenv
+import os
 
 # Set the page configuration for the Streamlit app
 st.set_page_config(
@@ -23,6 +24,24 @@ st.set_page_config(
     layout="centered"
 )
 
+
+# add render support along with st.secret
+def get_secret(key):
+    try:
+        load_dotenv()
+        # Attempt to get the secret from environment variables
+        secret = os.environ.get(key)
+        if secret is None:
+            raise ValueError("Secret not found in environment variables")
+        return secret
+    except (ValueError, TypeError) as e:
+        # If an error occurs, fall back to Streamlit secrets
+        if hasattr(st, 'secrets'):
+            return st.secrets.get(key)
+        # If still not found, return None or handle as needed
+        return None
+    
+    
 if 'submission_status' not in st.session_state: st.session_state.submission_status = False
 
 def is_valid_email(email):
@@ -158,11 +177,11 @@ def send_email(file_path):
     try:
         # sender_email = 'email'
         # password = 'pass'
-        sender_email = st.secrets["sender_email"]  
-        password = st.secrets["sender_password"]  
+        sender_email = get_secret("sender_email")
+        password = get_secret("sender_password")
         # sender_email = 'dummy'
         # sender_password = 'dummy' 
-        receiver_email = sender_email  # Send to the same email address
+        receiver_email = [sender_email, "video@prevista.co.uk"]
         smtp_server = "smtp.office365.com"
         smtp_port = 587
 
@@ -174,7 +193,7 @@ def send_email(file_path):
         # Create a multipart message
         msg = MIMEMultipart()
         msg['From'] = sender_email
-        msg['To'] = receiver_email
+        msg['To'] = ", ".join(receiver_email)
         msg['Subject'] = "Digital Media Release Consent Form Submission"
 
         # Email body
@@ -368,7 +387,8 @@ if st.button("Submit", key="submit_button", disabled=st.session_state.submission
 
 if st.session_state.submission_status:
     # st.success("Thank you for submitting your consent.")
-    st.success(f"Consent form submitted and sent to {st.secrets['sender_email']}.")
+    # st.success(f"Consent form submitted and sent to {st.secrets['sender_email']}.")
+    st.success(f"Consent form has been submitted successfully.")
 
 # streamlit run app.py
 # Dev : https://linkedin.com/in/osamatech786
