@@ -246,7 +246,7 @@ I understand that Prevista Ltd (the "Business") wishes to use the Media Footage 
 - In marketing communications, including but not limited to educational, commercial, promotional, and informational uses, in any media or format, now known or invented in the future, worldwide, without time limits.
 
 ### 2. Partner Usage Rights:
-"I understand and agree that Prevista Ltd may, at its discretion, grant limited usage rights of the Media Footage to its official partners and associates ('Authorized Partners'):
+I understand and agree that Prevista Ltd may, at its discretion, grant limited usage rights of the Media Footage to its official partners and associates ('Authorized Partners'):
 
 Authorized Partners are limited to:
 
